@@ -1,0 +1,3 @@
+D:/Dev/grafuri/testProject/cmake-build-debug/CMakeFiles/testProject.dir
+D:/Dev/grafuri/testProject/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Dev/grafuri/testProject/cmake-build-debug/CMakeFiles/rebuild_cache.dir

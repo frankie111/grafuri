@@ -1,0 +1,4 @@
+# ninja log v5
+5	543	7025129752845672	CMakeFiles/testProject.dir/main.cpp.obj	8ffa3fa5fb11aed4
+1	753	7025129754926922	CMakeFiles/testProject.dir/Graph.cpp.obj	eab0a140f9180a71
+753	956	7025129756968842	testProject.exe	370dd5b79946447a
