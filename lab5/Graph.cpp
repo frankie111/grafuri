@@ -1,5 +1,6 @@
 #include "Graph.h"
 #include <unordered_map>
+#include <set>
 #include <queue>
 
 Graph::Graph(const string &filename) {
@@ -26,29 +27,33 @@ void Graph::shortestPath(const string &n1, const string &n2) const {
     }
     distances[n1] = 0;
 
-    // create a priority queue to store the nodes to visit
-    auto cmp = [](const auto &a, const auto &b) { return a.second > b.second; };
-    priority_queue<pair<string, int>, vector<pair<string, int>>, decltype(cmp)> pq(cmp);
-    pq.emplace(n1, 0);
-
     // create a map to store the previous node in the shortest path
     unordered_map<string, string> prev;
 
-    // perform Dijkstra's algorithm
-    while (!pq.empty()) {
-        auto [u, du] = pq.top();
-        pq.pop();
+    // create a set to store the nodes to visit
+    auto cmp = [](const auto &a, const auto &b) { return a.second < b.second; };
+    set<pair<string, int>, decltype(cmp)> nodes(cmp);
+    nodes.emplace(n1, 0);
+
+    // Djikstra
+    while (!nodes.empty()) {
+        auto iter = nodes.begin();
+        string u = iter->first;
+        int du = iter->second;
+        nodes.erase(nodes.begin());
 
         if (u == n2) {
             // reached the end node, print the shortest path and its cost
             cout << "Shortest path from " << n1 << " to " << n2 << ": ";
             string node = n2;
             vector<Edge> path;
+
             while (node != n1) {
                 path.push_back({prev[node], node, distances[node] - distances[prev[node]]});
                 node = prev[node];
             }
-            for (auto it = path.rbegin(); it != path.rend(); ++it) {
+
+            for (auto it = path.rbegin(); it != path.rend(); it++) {
                 cout << "(" << it->city1 << ", " << it->city2 << ", " << it->weight << ")";
                 if (it != path.rend() - 1) cout << " -> ";
             }
@@ -64,14 +69,14 @@ void Graph::shortestPath(const string &n1, const string &n2) const {
                 if (dv < distances[e.city2]) {
                     distances[e.city2] = dv;
                     prev[e.city2] = u;
-                    pq.push({e.city2, dv});
+                    nodes.emplace(e.city2, dv);
                 }
             } else if (e.city2 == u) {
                 int dv = distances[u] + e.weight;
                 if (dv < distances[e.city1]) {
                     distances[e.city1] = dv;
                     prev[e.city1] = u;
-                    pq.push({e.city1, dv});
+                    nodes.emplace(e.city1, dv);
                 }
             }
         }
