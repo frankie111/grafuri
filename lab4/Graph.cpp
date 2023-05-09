@@ -23,7 +23,8 @@ Graph::Graph(const string &fileName) {
 }
 
 bool Graph::isBinaryTree() const {
-    vector<int> parent(v, -1);  // initialize all parent nodes to -1
+    // initialize all parent nodes to -1
+    vector<int> parent(v, -1);
     vector<bool> visited(v, false);
     stack<int> s;
 
@@ -57,9 +58,9 @@ bool Graph::isBinaryTree() const {
     return true;
 }
 
-Graph::Node* Graph::matrixToTree() {
+Graph::Node *Graph::matrixToTree() {
     // Create an array to store nodes of the binary tree
-    Node* nodes[v];
+    Node *nodes[v];
     for (int i = 0; i < v; i++) {
         nodes[i] = new Node(i);
     }
@@ -92,8 +93,8 @@ Graph::Node* Graph::matrixToTree() {
 
 void Graph::printInOrder(Node *node) {
     // Traverse tree inorder and print Nodes
-    stack<Node*> s;
-    Node* curr = node;
+    stack<Node *> s;
+    Node *curr = node;
 
     while (!s.empty() || curr != nullptr) {
         if (curr != nullptr) {

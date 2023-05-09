@@ -26,9 +26,8 @@ public:
 
     [[nodiscard]] bool isBinaryTree() const;
 
-    void printInOrder(Node *node);
+    static void printInOrder(Node *node);
 
-    // Convert adjacency matrix to binary tree
     Node *matrixToTree();
 
 };
