@@ -19,7 +19,7 @@ void Graph::printGraph() const {
 }
 
 void Graph::shortestPath(const string &n1, const string &n2) const {
-    // create a map to store the distances from the start node to all other nodes
+
     unordered_map<string, int> distances;
     for (const auto &e: edgeList) {
         distances[e.city1] = INT_MAX;
@@ -27,7 +27,6 @@ void Graph::shortestPath(const string &n1, const string &n2) const {
     }
     distances[n1] = 0;
 
-    // create a map to store the previous node in the shortest path
     unordered_map<string, string> prev;
 
     // create a set to store the nodes to visit
@@ -53,10 +52,11 @@ void Graph::shortestPath(const string &n1, const string &n2) const {
                 node = prev[node];
             }
 
-            for (auto it = path.rbegin(); it != path.rend(); it++) {
-                cout << "(" << it->city1 << ", " << it->city2 << ", " << it->weight << ")";
-                if (it != path.rend() - 1) cout << " -> ";
+            for (int i = int(path.size()) - 1; i >= 0; i--) {
+                cout << "(" << path[i].city1 << ", " << path[i].city2 << ", " << path[i].weight << ")";
+                if (i != 0) cout << " -> ";
             }
+
             cout << "\nTotal cost: " << distances[n2] << endl;
             return;
         }
@@ -82,6 +82,6 @@ void Graph::shortestPath(const string &n1, const string &n2) const {
         }
     }
 
-    // end node was not reached
+    // end node unreachable
     cout << "There is no path from " << n1 << " to " << n2 << endl;
 }
